@@ -1,0 +1,29 @@
+{
+    "name": "omnidocs/php",
+    "type": "library",
+    "description": "Omnidocs PHP: a PHP package's API reference, read from its sources - its namespaces, classes, interfaces, traits and enums, their public constants, properties and methods with their signatures and PHPDoc, and the options its factories' configuration takes - as an omnidocs manual (nikic/php-parser, phpdocumentor/reflection-docblock); nothing is loaded nor run.",
+    "keywords": ["documentation", "api reference", "php", "phpdoc", "php-parser", "omnidocs"],
+    "homepage": "https://github.com/glitchr-studio/omnidocs-php",
+    "license": "MIT",
+    "authors": [{"name": "Marco Meyer", "email": "marco.meyer@glitchr.io"}],
+    "require": {
+        "php": ">=8.2",
+        "nikic/php-parser": "^5.0",
+        "omniscient/omnidocs": "^1.0@dev",
+        "phpdocumentor/reflection-docblock": "^5.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload": {
+        "psr-4": {"Omnidocs\\Php\\": ""},
+        "exclude-from-classmap": ["/Tests/"]
+    },
+    "autoload-dev": {
+        "psr-4": {"Omnidocs\\Php\\Tests\\": "Tests/"}
+    },
+    "extra": {
+        "branch-alias": {"dev-1.x": "1.x-dev"}
+    },
+    "config": {"sort-packages": true}
+}

@@ -1,0 +1,31 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Static property Omnidocs\\Php\\DocText\:\:\$factory \(phpDocumentor\\Reflection\\DocBlockFactory\|null\) does not accept phpDocumentor\\Reflection\\DocBlockFactoryInterface\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: DocText.php
+
+		-
+			message: '#^Parameter \#4 \$extends of class Omnidocs\\Php\\ApiClass constructor expects list\<string\>, array\<non\-empty\-string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: Reader.php
+
+		-
+			message: '#^Parameter \#5 \$implements of class Omnidocs\\Php\\ApiClass constructor expects list\<string\>, array\<non\-empty\-string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: Reader.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between null and PhpParser\\Node\\ArrayItem will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: Reader.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between null and PhpParser\\Node\\ArrayItem will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: Reader.php
