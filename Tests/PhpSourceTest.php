@@ -85,4 +85,14 @@ final class PhpSourceTest extends TestCase
         self::assertContains('ArraySourceFactory pages', $names);
         self::assertContains('Omnidocs\Model\Heading::$level', $names);
     }
+
+    public function testTheIndexIsACardPerClassByNamespace(): void
+    {
+        $html = (string) $this->source()->page('', new RecordingLinker())?->html();
+
+        self::assertStringContainsString('<section class="api-group"><p class="api-group-title"><a href="/omnidocs"><code>Omnidocs</code></a></p><ul class="api-cards">', $html);
+        self::assertMatchesRegularExpression('#<li class="api-card" data-class="Omnidocs\\\\Registry"><p class="api-card-name"><a href="/omnidocs\#registry"><code>Registry</code></a> <span class="api-kind">class</span></p><p class="api-card-about">[^<]+</p><p class="api-card-counts">\d+ methods?</p></li>#', $html);
+        self::assertMatchesRegularExpression('#data-class="Omnidocs\\\\Testing\\\\ArraySourceFactory">.*?<p class="api-card-counts">2 options · \d+ methods?</p>#', $html, 'a factory\'s options counted');
+        self::assertSame([], $this->source()->page('')?->headings() ?? [], 'no heading of its own: the namespaces are the parts');
+    }
 }

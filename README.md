@@ -2,7 +2,7 @@
 
 A PHP package's API reference, read from its sources - never loaded, never run - as an
 [omnidocs](https://github.com/glitchr-omnisense/omnidocs) manual: a home that lists every namespace and
-its classes, then a page per namespace, each class with its declaration (`final class Registry
+its classes (a card per class: its kind, what it is, what it holds counted), then a page per namespace, each class with its declaration (`final class Registry
 implements Drives`), its PHPDoc, the **options of its configuration** (a factory's `->defaults([...])`
 keys and defaults, the ones it requires), its public constants, enum cases, properties (promoted ones
 included) and methods - signature, text, parameters, return, exceptions - each at its anchor, each an

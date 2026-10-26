@@ -16,7 +16,8 @@ use Omnidocs\Support\Path;
 
 /**
  * A PHP package's API reference as a manual: a home that lists every
- * namespace and its classes, then a page per namespace - each class with its
+ * namespace and its classes - a card per class, its kind, what it is, what it
+ * holds counted -, then a page per namespace - each class with its
  * declaration, its PHPDoc, the options of its configuration (a factory's),
  * its constants, cases, properties and methods; each with its anchor, each an
  * API entry (Symbol) the search finds. A class or a member links to its
@@ -80,17 +81,36 @@ final class PhpSource implements SourceInterface
             if ([] === $this->classes()) {
                 return null;
             }
+            // The index: a group per namespace, a card per class - its name to its entry, its kind, what it is,
+            // what it holds counted (the omnidocs conventions the JavaScript index shares).
             $html = '';
+            $words = ['option' => 'options', 'method' => 'methods', 'property' => 'properties', 'constant' => 'constants', 'case' => 'cases'];
             foreach ($this->namespaces() as $namespace => $classes) {
-                $html .= '<h2 class="api-namespace"><a href="'.Conventions::escape(null !== $links ? $links->page(self::pathOf($namespace)) : '#').'"><code>'.Conventions::escape($namespace ?: '(global)').'</code></a></h2><ul class="api-index">';
+                $html .= '<section class="api-group"><p class="api-group-title"><a href="'.Conventions::escape(null !== $links ? $links->page(self::pathOf($namespace)) : '#').'"><code>'.Conventions::escape($namespace ?: '(global)').'</code></a></p><ul class="api-cards">';
                 foreach ($classes as $class) {
                     $anchor = $this->build($namespace, $links)['anchors'][$class->name] ?? null;
-                    $html .= '<li><a href="'.Conventions::escape(null !== $links ? $links->page(self::pathOf($namespace), $anchor) : '#').'"><code>'.Conventions::escape($class->shortName()).'</code></a> <span class="api-kind">'.Conventions::escape($class->kind).'</span>'.('' !== $class->doc->summary ? ' - '.Conventions::escape($class->doc->summary) : '').'</li>';
+                    $counts = ['option' => \count($class->options)];
+                    foreach ($class->members as $member) {
+                        $counts[$member->kind] = ($counts[$member->kind] ?? 0) + 1;
+                    }
+                    $held = [];
+                    foreach ($words as $one => $many) {
+                        $n = $counts[$one] ?? 0;
+                        if ($n > 0) {
+                            $held[] = $n.' '.(1 === $n ? $one : $many);
+                        }
+                    }
+                    $html .= '<li class="api-card" data-class="'.Conventions::escape($class->name).'">'
+                        .'<p class="api-card-name"><a href="'.Conventions::escape(null !== $links ? $links->page(self::pathOf($namespace), $anchor) : '#').'"><code>'.Conventions::escape($class->shortName()).'</code></a> <span class="api-kind">'.Conventions::escape($class->kind).'</span></p>'
+                        .('' !== $class->doc->summary ? '<p class="api-card-about">'.Conventions::escape($class->doc->summary).'</p>' : '')
+                        .([] !== $held ? '<p class="api-card-counts">'.Conventions::escape(implode(' · ', $held)).'</p>' : '')
+                        .'</li>';
                 }
-                $html .= '</ul>';
+                $html .= '</ul></section>';
             }
+            $html = '<div class="api-index">'.$html.'</div>';
 
-            return new Page('', $this->title, new Rendered($html, $this->title, Headings::of($html), [], Text::of($html)));
+            return new Page('', $this->title, new Rendered($html, $this->title, [], [], Text::of($html)));
         }
         foreach ($this->namespaces() as $namespace => $classes) {
             if (self::pathOf($namespace) === $path) {
