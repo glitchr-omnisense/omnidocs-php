@@ -11,7 +11,7 @@ use Omnidocs\Testing\SourceContractTests;
 use PHPUnit\Framework\TestCase;
 
 /**
- * A real package's sources: omniscient/omnidocs itself, as Composer installed
+ * A real package's sources: omnisense/omnidocs itself, as Composer installed
  * it beside this package (its classes, its PHPDoc, the options of its
  * "array" factory), and this package's own.
  */

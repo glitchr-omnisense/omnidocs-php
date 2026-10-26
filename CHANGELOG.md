@@ -5,5 +5,8 @@ Every version of omnidocs/php, newest first ([Keep a Changelog](https://keepacha
 
 ## Unreleased
 
+### Changed
+- Requires `omnisense/omnidocs`, the core's new name (Omniscient is now Omnisense); the repository is `glitchr-omnisense/omnidocs-php`.
+
 ### Added
 - The source, its factory, omnidocs' conformance suite on a real tool's output.

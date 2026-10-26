@@ -1,7 +1,7 @@
 # omnidocs/php
 
 A PHP package's API reference, read from its sources - never loaded, never run - as an
-[omnidocs](https://github.com/glitchr-studio/omnidocs) manual: a home that lists every namespace and
+[omnidocs](https://github.com/glitchr-omnisense/omnidocs) manual: a home that lists every namespace and
 its classes, then a page per namespace, each class with its declaration (`final class Registry
 implements Drives`), its PHPDoc, the **options of its configuration** (a factory's `->defaults([...])`
 keys and defaults, the ones it requires), its public constants, enum cases, properties (promoted ones
@@ -13,7 +13,7 @@ It stands on what exists: [nikic/php-parser](https://github.com/nikic/PHP-Parser
 What is `@internal`, private or protected, or under Tests, vendor, docker, docs, is left out.
 
 ```php
-$api = (new Omnidocs\Php\PhpSourceFactory())->create(['root' => 'vendor/omniscient/omnidrive', 'title' => 'API reference']);
+$api = (new Omnidocs\Php\PhpSourceFactory())->create(['root' => 'vendor/omnisense/omnidrive', 'title' => 'API reference']);
 ```
 
 | Option | Default | Meaning |
@@ -26,9 +26,9 @@ $api = (new Omnidocs\Php\PhpSourceFactory())->create(['root' => 'vendor/omniscie
 
 ## Verified, and not
 
-- Verified (omnidocs' harness, PHP 8.4): omnidocs' conformance suite on omniscient/omnidocs' own
+- Verified (omnidocs' harness, PHP 8.4): omnidocs' conformance suite on omnisense/omnidocs' own
   sources (its classes, PHPDoc, promoted properties, the options of its "array" factory); `BareTest`.
-- Verified in use: the Omniscient site's API reference of each of its 150 PHP packages (omnibase 4.x,
+- Verified in use: the Omnisense site's API reference of each of its 150 PHP packages (omnibase 4.x,
   the families, their providers), read at the commit each manual is pinned to.
 - Not verified: options given otherwise than in an array literal (a constant, a method call); attributes
   (`#[...]`) are not shown; a package with two classes of the same name in one namespace (one wins).
